@@ -34,7 +34,6 @@ public class RequestHandler extends AccessCounter implements Runnable {
 		} finally {
 			lock.unlock();
 		}
-
 	}
 
 	public static void main(String[] args) {
@@ -69,23 +68,124 @@ public class RequestHandler extends AccessCounter implements Runnable {
 		Thread t12 = new Thread(req12);
 		
 		t1.start();
-		t2.start();
-		t3.start();
-		t4.start();
-		t5.start();
-		t6.start();
-		t7.start();
-		t8.start();
-		t9.start();
-		t10.start();
-		t11.start();
-		t12.start();
-
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(300);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		req1.setDone();
+		t1.interrupt();
+		System.out.println("thread 1 done");
+
+		t2.start();
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		req2.setDone();
+		t2.interrupt();
+		System.out.println("thread 2 done");
+
+		t3.start();
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		req3.setDone();
+		t3.interrupt();
+		System.out.println("thread 3 done");
+
+		t4.start();
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		req4.setDone();
+		t4.interrupt();
+		System.out.println("thread 4 done");
+
+		t5.start();
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		req5.setDone();
+		t5.interrupt();
+		System.out.println("thread 5 done");
+
+		t6.start();
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		req6.setDone();
+		t6.interrupt();
+		System.out.println("thread 6 done");
+
+		t7.start();
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		req7.setDone();
+		t7.interrupt();
+		System.out.println("thread 7 done");
+
+		t8.start();
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		req8.setDone();
+		t8.interrupt();
+		System.out.println("thread 8 done");
+
+		t9.start();
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		req9.setDone();
+		t9.interrupt();
+		System.out.println("thread 9 done");
+
+		t10.start();
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		req10.setDone();
+		t10.interrupt();
+		System.out.println("thread 10 done");
+
+		t11.start();
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		req11.setDone();
+		t11.interrupt();
+		System.out.println("thread 11 done");
+
+		t12.start();
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		req12.setDone();
+		t12.interrupt();
+		System.out.println("thread 12 done");
 		
 		try {
 			t1.join();
