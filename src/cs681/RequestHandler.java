@@ -1,19 +1,40 @@
 package cs681;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class RequestHandler extends AccessCounter implements Runnable {
 
 	private Path path;
+	private boolean done = false;
+	private final ReentrantLock lock = new ReentrantLock();
 	
 	public RequestHandler(Path p) {
 		this.path = p;
 	}
+
+	public void setDone() {
+		lock.lock();
+		try {
+			done = true;
+		} finally {
+			lock.unlock();
+		}
+	}
 	
 	public void run() {
-		AccessCounter ac = AccessCounter.getInstance();
-		ac.increment(this.path);
-		ac.getCount(this.path);
+		lock.lock();
+		try {
+			if (done) {
+				System.out.println("Stopped access counter.");
+			}
+			AccessCounter ac = AccessCounter.getInstance();
+			ac.increment(this.path);
+			ac.getCount(this.path);
+		} finally {
+			lock.unlock();
+		}
+
 	}
 
 	public static void main(String[] args) {
@@ -59,6 +80,12 @@ public class RequestHandler extends AccessCounter implements Runnable {
 		t10.start();
 		t11.start();
 		t12.start();
+
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 		try {
 			t1.join();
@@ -76,6 +103,8 @@ public class RequestHandler extends AccessCounter implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
+		System.out.println("done");
         
 	}
 
